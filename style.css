@@ -4,11 +4,6 @@ body {
   background: #000;
 }
 
-.red {
-  background: rgb(255, 0, 0);
-  mix-blend-mode: multiply;
-}
-
 #vid_container {
   position: fixed;
   top: 0;
@@ -161,4 +156,111 @@ button {
     left: calc(50% - 32px);
     top: calc(82% - 32px);
   }
+  
+  .filter {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  transition: opacity 250ms ease-in;
+  opacity: 0;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.filter .loading {
+  display: none;
+  margin: auto;
+}
+
+.streaming .filter {
+  opacity: 1;
+}
+
+.streaming .filter .loading {
+  display: block;
+}
+
+.video-loaded .filter {
+  background: red;
+  opacity: .65;
+}
+
+.video-loaded .filter .loading {
+  display: none;
+}
+
+@supports (mix-blend-mode: multiply) {
+  .video-loaded .filter {
+    mix-blend-mode: multiply;
+    opacity: 1;
+  }
+}
+
+[data-filter=red].video-loaded .filter {
+  background: red;
+}
+
+[data-filter=green].video-loaded .filter {
+  background: lime;
+}
+
+[data-filter=blue].video-loaded .filter {
+  background: blue;
+}
+
+[data-filter=chase].video-loaded .filter {
+  animation: hue 20000ms infinite linear;
+}
+
+@keyframes hue-rotate {
+  0%,
+  5% {
+    filter: hue-rotate(0deg);
+  }
+  33%,
+  38% {
+    filter: hue-rotate(120deg);
+  }
+  67%,
+  72% {
+    filter: hue-rotate(240deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes hue {
+  0%,
+  7%,
+  100% {
+    background-color: red;
+  }
+  19% {
+    background-color: yellow;
+  }
+  32%,
+  39% {
+    background-color: lime;
+  }
+  52% {
+    background-color: cyan;
+  }
+  66%,
+  73% {
+    background-color: blue;
+  }
+  86% {
+    background-color: magenta;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
 }
